@@ -11,9 +11,12 @@ class Footer extends PureComponent {
 
     render() {
         return (
-            <><a href='/'>Home </a>
+            <>
+            <div className='bg-green-700 text-4xl'><Footer/></div>
+            <a href='/'>Home </a>
             <a href='/blog'>Blog </a>
-            <a href='/about'>About </a></>
+            <a href='/about'>About </a>
+            </>
         )
     }
 }

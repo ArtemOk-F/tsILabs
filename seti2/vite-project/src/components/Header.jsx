@@ -11,9 +11,13 @@ class Header extends PureComponent {
 
     render() {
         return (
-            <><a href='/'>Home </a>
+            
+            <>
+            <div className='bg-red-500 text-4xl' ><Header/></div>
+            <a href='/'>Home </a>
             <a href='/blog'>Blog </a>
-            <a href='/about'>About </a></>
+            <a href='/about'>About </a>
+            </>
             
         )
     }

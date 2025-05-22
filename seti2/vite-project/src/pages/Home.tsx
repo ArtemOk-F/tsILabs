@@ -15,6 +15,7 @@ class Home extends PureComponent<Props, State> {
     render(): ReactNode {
         return (
             <div>Home///////...</div>
+            
         )
     }
 }

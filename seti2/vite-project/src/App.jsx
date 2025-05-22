@@ -1,31 +1,46 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import { BrowserRouter, Routes, Route } from 'react-router-dom'
-import Home from './pages/Home'
-import About from './pages/About'
-import Header from './components/Header'
-import Footer from './components/Footer'
-import Blog from './pages/Blog'
+import React, { useState } from 'react';
+import { Button } from './components/Button';
+import { Input } from './components/Input';
+import { Modal } from './components/Modal';
+import { Card } from './components/Card';
 
 function App() {
+  const [cards, setCards] = useState([]);
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [form, setForm] = useState({ title: '', description: '', cost: '', attack: '', health: '' });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAdd = () => {
+    setCards((prev) => [...prev, form]);
+    setForm({ title: '', description: '', cost: '', attack: '', health: '' });
+    setModalOpen(false);
+  };
 
   return (
-    <>
-      <div className='bg-red-500 text-4xl' ><Header/></div>
-      <div className='bg-blue-500 text-6xl'>
-        <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<Home/>} />
-          <Route path="/about" element={<About/>} />
-          <Route path="/blog" element={<Blog/>} />
-        </Routes>
-        </BrowserRouter>
-      </div>
-      <div className='bg-green-700 text-4xl'><Footer/></div>
-    </>
-  )
-}
+    <div className="p-6">
+      <Button onClick={() => setModalOpen(true)}>Добавить карту</Button>
 
-export default App
+      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
+        <h2 className="text-lg font-bold mb-4">Новая карта</h2>
+        <Input name="title" value={form.title} onChange={handleChange} placeholder="Название" />
+        <Input name="description" value={form.description} onChange={handleChange} placeholder="Описание" />
+        <Input name="cost" value={form.cost} onChange={handleChange} placeholder="Стоимость" type="number" />
+        <Input name="attack" value={form.attack} onChange={handleChange} placeholder="Атака" type="number" />
+        <Input name="health" value={form.health} onChange={handleChange} placeholder="Здоровье" type="number" />
+        <div className="flex justify-end">
+          <Button onClick={handleAdd}>Добавить</Button>
+        </div>
+      </Modal>
+
+      <div className="flex flex-wrap mt-6">
+        {cards.map((card, idx) => (
+          <Card key={idx} card={card} />
+        ))}
+      </div>
+    </div>
+  );
+}
